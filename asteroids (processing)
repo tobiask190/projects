@@ -12,11 +12,11 @@ float k=0;
 float l=0;
 float vx=0;
 float vy=0;
-float v=0;
+float s=0;
 float cx=0;
 float cy=0;
 float p=0;
-float s=0;
+float q=0;
 float angle;
 float x=-500;
 float y=-500;
@@ -47,26 +47,29 @@ void draw(){
   //Move object
   if(keyPressed && (key == CODED)){
     if (keyCode == UP){
-      v=v+0.1;
+      s=s+0.1;
     }
   }
   
-  if(v<0){
-    v=v+0.05;
+  if(s<0){
+    s=s+0.05;
   }
-  else if(v>0){
-    v=v-0.05;
-  }
-  
-  if(v>2){
-    v=2;
-  }
-  if(v<-2){
-    v=-2;
+  else if(s>0){
+    s=s-0.05;
   }
   
-  vx=v*cos(angle);
-  vy=v*sin(angle);
+  if(s>2){
+    s=2;
+  }
+  if(s<-2){
+    s=-2;
+  }
+  
+  if(keyPressed && (key == CODED)){
+    if (keyCode == UP){
+      vx=s*cos(angle);
+      vy=s*sin(angle);
+    }
   
   x=x-vx;
   y=y-vy;
@@ -103,9 +106,8 @@ void draw(){
     }
   }
   if(p==1){
-    s=(cx-h)/(cy-g);
+    q=(cx-h)/(cy-g);
     cx++;
-    cy=s*cx;
+    cy=q*cx;
     ellipse(cx,cy,5,5);
   }
-}
