@@ -1,0 +1,75 @@
+float a=0;
+float b=0;
+float c=0;
+float d=0;
+float e=0;
+float f=0;
+float g=0;
+float h=0;
+float i=0;
+float j=0;
+float k=0;
+float l=0;
+float angle;
+float x=0;
+float y=0;
+float p=3.14159265359;
+
+void setup(){
+size(1000,1000);
+background (0);
+stroke(0);
+fill(255);
+}
+
+//moving triangle simulator. Meant to be asteroids, but too much programming...
+void draw(){
+
+  //clearscreen
+  background (0);
+
+  //rotate object
+  if(mousePressed) {
+    if(mouseButton == LEFT){
+      angle=angle+0.1;
+    }
+    if(mouseButton == RIGHT){
+      angle=angle+0.1;
+    }
+  }
+
+  //Move object
+  if(keyPressed && (key == CODED)){
+    if (keyCode == LEFT) {
+      x=x+10;
+    }
+    else if(keyCode == RIGHT){
+      x=x-10;
+    }
+    if (keyCode == UP){
+      y=y+10;
+    }
+    else if (keyCode == DOWN){
+      y=y-10;
+    }
+  }
+  a=angle+4.71;
+  b=angle+4.71;
+  c=angle+2.62;
+  d=angle+2.62;
+  e=angle+2.8/6;
+  f=angle+2.8/6;
+  g=100*cos(a)-x;
+  h=100*sin(b)-y;
+  i=100*cos(c)-x;
+  j=100*sin(d)-y;
+  k=100*cos(e)-x;
+  l=100*sin(f)-y;
+  
+  //le debug circle
+  //ellipse(-x,-y,200,200);
+  
+  //complicated trig to calculate the position of triangle
+  triangle (g,h,i,j,k,l);
+  triangle (100,100,100,50,140,140);
+}
