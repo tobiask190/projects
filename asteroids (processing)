@@ -10,10 +10,16 @@ float i=0;
 float j=0;
 float k=0;
 float l=0;
+float vx=0;
+float vy=0;
+float v=0;
+float cx=0;
+float cy=0;
+float p=0;
+float s=0;
 float angle;
-float x=0;
-float y=0;
-float p=3.14159265359;
+float x=-500;
+float y=-500;
 
 void setup(){
 size(1000,1000);
@@ -31,34 +37,46 @@ void draw(){
   //rotate object
   if(mousePressed) {
     if(mouseButton == LEFT){
-      angle=angle+0.1;
+      angle=angle-0.05;
     }
     if(mouseButton == RIGHT){
-      angle=angle+0.1;
+      angle=angle+0.05;
     }
   }
 
   //Move object
   if(keyPressed && (key == CODED)){
-    if (keyCode == LEFT) {
-      x=x+10;
-    }
-    else if(keyCode == RIGHT){
-      x=x-10;
-    }
     if (keyCode == UP){
-      y=y+10;
-    }
-    else if (keyCode == DOWN){
-      y=y-10;
+      v=v+0.1;
     }
   }
-  a=angle+4.71;
-  b=angle+4.71;
-  c=angle+2.62;
-  d=angle+2.62;
-  e=angle+2.8/6;
-  f=angle+2.8/6;
+  
+  if(v<0){
+    v=v+0.05;
+  }
+  else if(v>0){
+    v=v-0.05;
+  }
+  
+  if(v>2){
+    v=2;
+  }
+  if(v<-2){
+    v=-2;
+  }
+  
+  vx=v*cos(angle);
+  vy=v*sin(angle);
+  
+  x=x-vx;
+  y=y-vy;
+  
+  a=angle;
+  b=angle;
+  c=angle+2.0944;
+  d=angle+2.0944;
+  e=angle+4.18879;
+  f=angle+4.18879;
   g=100*cos(a)-x;
   h=100*sin(b)-y;
   i=100*cos(c)-x;
@@ -71,5 +89,23 @@ void draw(){
   
   //complicated trig to calculate the position of triangle
   triangle (g,h,i,j,k,l);
-  triangle (100,100,100,50,140,140);
+  
+  //reference angle
+  ellipse(g,h,30,30);
+  
+  if(p==0){
+    cx=x;
+    cy=y;
+  }
+  if(keyPressed && (key == CODED)){
+    if (keyCode == CONTROL){
+      p=1;
+    }
+  }
+  if(p==1){
+    s=(cx-h)/(cy-g);
+    cx++;
+    cy=s*cx;
+    ellipse(cx,cy,5,5);
+  }
 }
