@@ -1,0 +1,83 @@
+Spaceship rocket_triangle = new Spaceship(0,0);
+
+//Setting up the vertices values
+float a, b, c, d, e, f;
+
+//setting up center values
+float xini = 0;
+float yini = 0;
+
+//Setting up the float values
+float speed, angle;
+
+//////////////////////////////////////////////////////////
+
+class Projectile{
+
+}
+class Spaceship{
+  float xpos, ypos, xvel, yvel;
+  Spaceship (float xini, float yini) {
+    xpos = xini;
+    ypos = yini;
+  }
+  void update(){
+    xvel = speed*cos(angle);
+    yvel = speed*sin(angle);
+    xpos = xpos - xvel;
+    ypos = ypos - yvel;
+    
+    //complicated trig to calculate the location of all the vertices
+    a=100*cos(angle)-xpos;
+    b=100*sin(angle)-ypos;
+    c=100*cos(angle+2.0944)-xpos;
+    d=100*sin(angle+2.0944)-ypos;
+    e=100*cos(angle+4.18879)-xpos;
+    f=100*sin(angle+4.18879)-ypos;
+    triangle (a,b,c,d,e,f);
+  }
+}
+
+//////////////////////////////////////////////////////////
+
+void setup(){
+size(1000,1000);
+background (0);
+stroke(0);
+fill(255);
+frameRate(30);
+}
+
+void draw() {
+  //Resetting the screen before the update
+  background(255);
+  
+  //rotating the object
+  if(mousePressed) {
+    if(mouseButton == LEFT){
+      angle=angle-0.05;
+    }
+    if(mouseButton == RIGHT){
+      angle=angle+0.05;
+    }
+  }
+  
+  //Setting the speed of the object
+  if(keyPressed && (key == CODED)){
+    if (keyCode == UP){
+      speed = speed + 0.1;
+    }
+  }
+  if (speed >= 0){
+    speed = speed - 0.05;
+  }
+  if (speed < 0){
+    speed = 0;
+  }
+  if(speed>2){
+    speed = 2;
+  }
+  
+  //Updating the position of the object;
+  rocket_triangle.update();
+}
