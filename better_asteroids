@@ -1,4 +1,4 @@
-Spaceship rocket_triangle = new Spaceship(0,0);
+Spaceship rocket_triangle = new Spaceship(-500,-500);
 
 //Setting up the vertices values
 float a, b, c, d, e, f;
@@ -8,7 +8,10 @@ float xini = 0;
 float yini = 0;
 
 //Setting up the float values
-float speed, angle;
+float speed, angle; 
+float accel = 0.5;
+float xvel = 0;
+float yvel = 0;
 
 //////////////////////////////////////////////////////////
 
@@ -16,14 +19,12 @@ class Projectile{
 
 }
 class Spaceship{
-  float xpos, ypos, xvel, yvel;
+  float xpos, ypos;
   Spaceship (float xini, float yini) {
     xpos = xini;
     ypos = yini;
   }
   void update(){
-    xvel = speed*cos(angle);
-    yvel = speed*sin(angle);
     xpos = xpos - xvel;
     ypos = ypos - yvel;
     
@@ -64,18 +65,8 @@ void draw() {
   
   //Setting the speed of the object
   if(keyPressed && (key == CODED)){
-    if (keyCode == UP){
-      speed = speed + 0.1;
-    }
-  }
-  if (speed >= 0){
-    speed = speed - 0.05;
-  }
-  if (speed < 0){
-    speed = 0;
-  }
-  if(speed>2){
-    speed = 2;
+      xvel = xvel + accel*cos(angle);
+      yvel = yvel + accel*sin(angle);
   }
   
   //Updating the position of the object;
