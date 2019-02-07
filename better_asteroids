@@ -1,4 +1,5 @@
 Spaceship rocket_triangle = new Spaceship(-500,-500);
+Spaceship other_rocket = new Spaceship(-200, -200);
 
 //Setting up the vertices values
 float a, b, c, d, e, f;
@@ -71,4 +72,5 @@ void draw() {
   
   //Updating the position of the object;
   rocket_triangle.update();
+  other_rocket.update();
 }
