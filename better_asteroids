@@ -25,18 +25,35 @@ class Spaceship{
     ypos = yini;
   }
   void update(){
+    
+    //Setting the speed of the object
+    if(keyPressed && (key == CODED)){
+        xvel = xvel + accel*cos(angle);
+        yvel = yvel + accel*sin(angle);
+    }
+    
     xpos = xpos - xvel;
     ypos = ypos - yvel;
     
     //complicated trig to calculate the location of all the vertices
-    a=100*cos(angle)-xpos;
-    b=100*sin(angle)-ypos;
-    c=100*cos(angle+2.0944)-xpos;
-    d=100*sin(angle+2.0944)-ypos;
-    e=100*cos(angle+4.18879)-xpos;
-    f=100*sin(angle+4.18879)-ypos;
+    a = cosMath(angle, xpos);
+    b = sinMath(angle, ypos);
+    c = cosMath(angle+2.0944, xpos);
+    d = sinMath(angle+2.0944, ypos);
+    e = cosMath(angle+4.18879, xpos);
+    f = sinMath(angle+4.18879, ypos);
     triangle (a,b,c,d,e,f);
   }
+}
+
+float sinMath(float input, float axis){
+  float output = 100*sin(input) - axis;
+  return output;
+}
+
+float cosMath(float input, float axis){
+  float output = 100*cos(input) - axis;
+  return output;
 }
 
 //////////////////////////////////////////////////////////
@@ -61,12 +78,6 @@ void draw() {
     if(mouseButton == RIGHT){
       angle=angle+0.05;
     }
-  }
-  
-  //Setting the speed of the object
-  if(keyPressed && (key == CODED)){
-      xvel = xvel + accel*cos(angle);
-      yvel = yvel + accel*sin(angle);
   }
   
   //Updating the position of the object;
