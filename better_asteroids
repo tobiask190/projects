@@ -22,7 +22,7 @@ class Spaceship{
     xpos = xini;
     ypos = yini;
   }
-  float update(){
+  void update(){
     
     //Setting the speed of the object
     if(keyPressed && (key == CODED)){
@@ -41,8 +41,6 @@ class Spaceship{
     e = cosMath(angle+4.18879, xpos);
     f = sinMath(angle+4.18879, ypos);
     triangle (a,b,c,d,e,f);
-    
-    return xpos, ypos;
   }
 }
 
