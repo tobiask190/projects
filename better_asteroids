@@ -3,10 +3,6 @@ Spaceship rocket_triangle = new Spaceship(-500,-500);
 //Setting up the vertices values
 float a, b, c, d, e, f;
 
-//setting up center values
-float xini = 0;
-float yini = 0;
-
 //Setting up the float values
 float speed, angle; 
 float accel = 0.5;
@@ -16,15 +12,17 @@ float yvel = 0;
 //////////////////////////////////////////////////////////
 
 class Projectile{
-
+  //if xpos or ypos become a certain value, the pellet is deleted. The name should be left to "null." As an input, the object name
+  should be rendered null in order to allow the garbage man to pick it up.
 }
+
 class Spaceship{
   float xpos, ypos;
   Spaceship (float xini, float yini) {
     xpos = xini;
     ypos = yini;
   }
-  void update(){
+  float update(){
     
     //Setting the speed of the object
     if(keyPressed && (key == CODED)){
@@ -43,6 +41,8 @@ class Spaceship{
     e = cosMath(angle+4.18879, xpos);
     f = sinMath(angle+4.18879, ypos);
     triangle (a,b,c,d,e,f);
+    
+    return xpos, ypos;
   }
 }
 
@@ -79,6 +79,7 @@ void draw() {
       angle=angle+0.05;
     }
   }
+  
   
   //Updating the position of the object;
   rocket_triangle.update();
