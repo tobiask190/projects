@@ -33,6 +33,9 @@ class Spaceship{
     xpos = xpos - xvel;
     ypos = ypos - yvel;
     
+    xpos = bounds(xpos);
+    ypos = bounds(ypos);
+    
     //complicated trig to calculate the location of all the vertices
     a = cosMath(angle, xpos);
     b = sinMath(angle, ypos);
@@ -54,6 +57,16 @@ float cosMath(float input, float axis){
   return output;
 }
 
+float bounds(float input){
+  if (input > 1000) {
+    return input = 0;
+  }
+  else if (input < 0) {
+    return input = 1000;
+  }
+  return input;
+}
+
 //////////////////////////////////////////////////////////
 
 void setup(){
@@ -66,7 +79,7 @@ frameRate(30);
 
 void draw() {
   //Resetting the screen before the update
-  background(255);
+  background(0);
   
   //rotating the object
   if(mousePressed) {
