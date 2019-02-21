@@ -1,5 +1,8 @@
 Spaceship rocket_triangle = new Spaceship(-500,-500);
 
+//Setting up global coordinates to help with the positioning of the pellets
+float[] coordinates = new float[];
+
 //Setting up the vertices values
 float a, b, c, d, e, f;
 
@@ -8,6 +11,8 @@ float speed, angle;
 float accel = 0.5;
 float xvel = 0;
 float yvel = 0;
+float global_x;
+float global_y;
 
 //////////////////////////////////////////////////////////
 
@@ -41,6 +46,10 @@ class Spaceship{
     e = cosMath(angle+4.18879, xpos);
     f = sinMath(angle+4.18879, ypos);
     triangle (a,b,c,d,e,f);
+    
+    coordinates[0] = xpos;
+    coordinates[1] = ypos;
+    return coordinates[];
   }
 }
 
@@ -53,6 +62,8 @@ float cosMath(float input, float axis){
   float output = 100*cos(input) - axis;
   return output;
 }
+
+float position
 
 //////////////////////////////////////////////////////////
 
@@ -82,5 +93,3 @@ void draw() {
   //Updating the position of the object;
   rocket_triangle.update();
 }
-
-//New comment
