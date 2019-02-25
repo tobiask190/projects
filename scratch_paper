@@ -1,0 +1,35 @@
+void keyReleased() {
+  keyboard = 0;
+}
+void keyPressed() {
+  if (keyboard == 0){
+    Creates a new pellet
+    BOOLEAN = 1;
+  }
+}
+
+
+if index > intial_count{
+  set index to zero;
+}
+
+When key pressed{
+  create new pellet;
+}
+
+Class Pellets{
+  float pxpos, pypos, pxvel, pyvel;
+  Pellets(float xini, float yini, float xvini, float yvini){
+    pxpos = xini;
+    pypos = yini;
+    pxvel = xvini;
+    pyvel = yvini;
+  }
+  void p_update(){
+    pxpos = pxpos - pxvel;
+    pypos = pypos - pyvel;
+  }
+}
+
+
+update.pellets();
