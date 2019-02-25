@@ -1,7 +1,5 @@
-Spaceship rocket_triangle = new Spaceship(-500,-500);
+Spaceship rocket_triangle = new Spaceship();
 
-//Setting up global coordinates to help with the positioning of the pellets
-float[] coordinates = new float[];
 
 //Setting up the vertices values
 float a, b, c, d, e, f;
@@ -13,31 +11,20 @@ float xvel = 0;
 float yvel = 0;
 float global_x;
 float global_y;
+float xpos = -500;
+float ypos = -500;
+float keyboard = 0;
 
 //////////////////////////////////////////////////////////
 
 class Projectile{
-  //if xpos or ypos become a certain value, the pellet is deleted. The name should be left to "null." As an input, the object name
-  should be rendered null in order to allow the garbage man to pick it up.
+  void createPellet(){
+   
+  }
 }
 
 class Spaceship{
-  float xpos, ypos;
-  Spaceship (float xini, float yini) {
-    xpos = xini;
-    ypos = yini;
-  }
   void update(){
-    
-    //Setting the speed of the object
-    if(keyPressed && (key == CODED)){
-        xvel = xvel + accel*cos(angle);
-        yvel = yvel + accel*sin(angle);
-    }
-    
-    xpos = xpos - xvel;
-    ypos = ypos - yvel;
-    
     //complicated trig to calculate the location of all the vertices
     a = cosMath(angle, xpos);
     b = sinMath(angle, ypos);
@@ -46,10 +33,6 @@ class Spaceship{
     e = cosMath(angle+4.18879, xpos);
     f = sinMath(angle+4.18879, ypos);
     triangle (a,b,c,d,e,f);
-    
-    coordinates[0] = xpos;
-    coordinates[1] = ypos;
-    return coordinates[];
   }
 }
 
@@ -63,7 +46,16 @@ float cosMath(float input, float axis){
   return output;
 }
 
-float position
+//Helps wit
+void keyReleased() {
+  keyboard = 0;
+}
+void keyPressed() {
+  if (keyboard == 0){
+    //Creates a new pellet object
+    keyboard = 1;
+  }
+}
 
 //////////////////////////////////////////////////////////
 
@@ -89,7 +81,18 @@ void draw() {
     }
   }
   
+  //Setting the speed of the object
+    if(keyPressed && (key == CODED)){
+        xvel = xvel + accel*cos(angle);
+        yvel = yvel + accel*sin(angle);
+    }
+    
+    xpos = xpos - xvel;
+    ypos = ypos - yvel;
   
-  //Updating the position of the object;
+  //Updating the position of the triangle
   rocket_triangle.update();
+  
+  //Updating the position of all pellets
+  
 }
