@@ -1,5 +1,12 @@
 Spaceship rocket_triangle = new Spaceship();
+Projectile pellet;
 
+void keyReleased() {
+    keyboard = 0;
+  }
+
+//
+int index = 0;
 
 //Setting up the vertices values
 float a, b, c, d, e, f;
@@ -13,13 +20,23 @@ float global_x;
 float global_y;
 float xpos = -500;
 float ypos = -500;
-float keyboard = 0;
+int keyboard = 0;
+int BOOLEAN = 0;
 
 //////////////////////////////////////////////////////////
 
 class Projectile{
-  void createPellet(){
-   
+  float pxpos, pypos, pxvel, pyvel;
+  Projectile (float xini, float yini, float xvini, float yvini) {
+    pxpos = xini;
+    pypos = yini;
+    pxvel = xvini;
+    pyvel = yvini;
+  }
+  void p_update(){
+    pxpos = pxpos - pxvel;
+    pypos = pypos - pyvel;
+    ellipse (pxpos, pypos, 2, 2);
   }
 }
 
@@ -44,17 +61,6 @@ float sinMath(float input, float axis){
 float cosMath(float input, float axis){
   float output = 100*cos(input) - axis;
   return output;
-}
-
-//Helps wit
-void keyReleased() {
-  keyboard = 0;
-}
-void keyPressed() {
-  if (keyboard == 0){
-    //Creates a new pellet object
-    keyboard = 1;
-  }
 }
 
 //////////////////////////////////////////////////////////
@@ -89,10 +95,18 @@ void draw() {
     
     xpos = xpos - xvel;
     ypos = ypos - yvel;
-  
+
+  if (keyboard == 0 && keyPressed == true){
+    Projectile pellet = new Projectile(xpos, ypos, xvel, yvel);
+    keyboard = 1;
+    BOOLEAN = 1;
+  }
+
   //Updating the position of the triangle
   rocket_triangle.update();
-  
+  if (BOOLEAN == 1){
+    pellet.p_update();
+  }
   //Updating the position of all pellets
   
 }
