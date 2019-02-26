@@ -4,7 +4,7 @@ void keyReleased() {
 void keyPressed() {
   if (keyboard == 0){
     Creates a new pellet
-    BOOLEAN = 1;
+    keyboard = 1;
   }
 }
 
@@ -17,6 +17,10 @@ When key pressed{
   create new pellet;
 }
 
+int index = 0;
+
+int[] pellet = new int[1000];
+
 Class Pellets{
   float pxpos, pypos, pxvel, pyvel;
   Pellets(float xini, float yini, float xvini, float yvini){
@@ -28,8 +32,17 @@ Class Pellets{
   void p_update(){
     pxpos = pxpos - pxvel;
     pypos = pypos - pyvel;
+    ellipse (pxpos, pypos, 2, 2);
   }
 }
 
-
+void keyReleased() {
+  keyboard = 0;
+}
+void keyPressed() {
+  if (keyboard == 0){
+    Pellets pellet[index++] = new Pellet(xpos, ypos, xvel, yvel);
+    keyboard = 1;
+  }
+}
 update.pellets();
