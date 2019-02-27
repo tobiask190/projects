@@ -1,0 +1,56 @@
+Bullet p1 = new Bullet (500.,500.);
+Bullet p2 = new Bullet (500.,500.);
+Bullet p3 = new Bullet (500.,500.);
+Bullet p4 = new Bullet (500.,500.);
+Bullet p5 = new Bullet (500.,500.);
+Bullet p6 = new Bullet (500.,500.);
+Bullet p7 = new Bullet (500.,500.);
+Bullet p8 = new Bullet (500.,500.);
+Bullet p9 = new Bullet (500.,500.);
+
+class Bullet {
+  float velocity = random(10);
+  float angle = random(3.142);
+  float xpos, ypos, yvel, xvel;
+  Bullet (float xini, float yini){
+    xpos = xini;
+    ypos = yini;
+    xvel = velocity*cos(angle);
+    yvel = velocity*sin(angle);
+  }
+  void update(){
+    xpos = xpos - xvel;
+    ypos = ypos - yvel;
+    
+    if(xpos <= 0){
+      xpos = 1000;
+    }
+    else if(xpos >= 1000){
+      xpos = 0;
+    }
+    if(ypos <= 0){
+      ypos = 1000;
+    }
+    else if(ypos >= 1000){
+      ypos = 0;
+    }
+    
+    ellipse(xpos, ypos, 5, 5);
+  }
+}
+void setup(){
+  background(0);
+  size(1000,1000);
+}
+void draw(){
+  background(0);
+  p1.update();
+  p2.update();
+  p3.update();
+  p4.update();
+  p5.update();
+  p6.update();
+  p7.update();
+  p8.update();
+  p9.update();
+}
