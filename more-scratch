@@ -1,16 +1,9 @@
-Bullet p1 = new Bullet (500.,500.);
-Bullet p2 = new Bullet (500.,500.);
-Bullet p3 = new Bullet (500.,500.);
-Bullet p4 = new Bullet (500.,500.);
-Bullet p5 = new Bullet (500.,500.);
-Bullet p6 = new Bullet (500.,500.);
-Bullet p7 = new Bullet (500.,500.);
-Bullet p8 = new Bullet (500.,500.);
-Bullet p9 = new Bullet (500.,500.);
+Bullet[] mods;
+int BOOLEAN = 0;
 
 class Bullet {
-  float velocity = random(10);
-  float angle = random(3.142);
+  float velocity = random(0,1.5);
+  float angle = random(2*3.142);
   float xpos, ypos, yvel, xvel;
   Bullet (float xini, float yini){
     xpos = xini;
@@ -35,33 +28,33 @@ class Bullet {
       ypos = 0;
     }
     
+    if (BOOLEAN == 0){
+      fill(random(255), random(255), random(255));
+      BOOLEAN++;
+    }
+    else if (BOOLEAN <= 5000){
+      BOOLEAN++;
+    }
+    if (BOOLEAN >= 5000){
+      BOOLEAN = 0;
+    }
     ellipse(xpos, ypos, 5, 5);
   }
 }
+
+
 void setup(){
   background(0);
   size(1000,1000);
+  mods = new Bullet[300];
+  for (int i = 0; i<300; i++){
+    mods[i] = new Bullet(500,500);
+  }  
 }
 void draw(){
   background(0);
-  p1.update();
-  p2.update();
-  p3.update();
-  p4.update();
-  p5.update();
-  p6.update();
-  p7.update();
-  p8.update();
-  p9.update();
+  for(Bullet mod : mods){
+    mod.update();
+  }
 }
 
-
-int[] array = new int[5];
-array[0] = 1;
-array[1] = 2;
-array[2] = 3;
-array[3] = 4;
-array[4] = 5;
-for (int i:array){
-  println(i);
-}
