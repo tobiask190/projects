@@ -1,10 +1,15 @@
 Bullet[] mods;
 int BOOLEAN = 0;
 
+
 class Bullet {
   float velocity = random(0,1.5);
   float angle = random(2*3.142);
   float xpos, ypos, yvel, xvel;
+  int colorr = 0;
+  int red = 255;
+  int green = 0;
+  int blue = 0;
   Bullet (float xini, float yini){
     xpos = xini;
     ypos = yini;
@@ -28,16 +33,43 @@ class Bullet {
       ypos = 0;
     }
     
-    if (BOOLEAN == 0){
-      fill(random(255), random(255), random(255));
-      BOOLEAN++;
+    if (colorr == 0){
+      green++;
+      if (green == 255){
+        colorr = 1;
+      }
     }
-    else if (BOOLEAN <= 5000){
-      BOOLEAN++;
+    if (colorr == 1){
+      red--;
+      if (red == 0){
+        colorr = 2;
+      }
     }
-    if (BOOLEAN >= 5000){
-      BOOLEAN = 0;
+    if (colorr == 2){
+      blue++;
+      if (blue == 255){
+        colorr = 3;
+      }
     }
+    if (colorr == 3){
+      green--;
+      if (green == 0){
+        colorr = 4;
+      }
+    }
+    if (colorr == 4){
+      red++;
+      if (red == 255){
+        colorr = 5;
+      }
+    }
+    if (colorr == 5){
+      blue--;
+      if (blue == 0){
+        colorr = 0;
+      }
+    }
+    fill(red, green, blue);
     ellipse(xpos, ypos, 5, 5);
   }
 }
@@ -45,7 +77,7 @@ class Bullet {
 
 void setup(){
   background(0);
-  size(1000,1000);
+  size(1920,1000);
   mods = new Bullet[300];
   for (int i = 0; i<300; i++){
     mods[i] = new Bullet(500,500);
@@ -57,4 +89,6 @@ void draw(){
     mod.update();
   }
 }
+
+
 
