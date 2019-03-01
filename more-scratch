@@ -1,9 +1,9 @@
 Bullet[] mods;
 int BOOLEAN = 0;
-
+int INDEX = 0;
 
 class Bullet {
-  float velocity = random(0,1.5);
+  float velocity = random(1,1.5);
   float angle = random(2*3.142);
   float xpos, ypos, yvel, xvel;
   int colorr = 0;
@@ -21,15 +21,15 @@ class Bullet {
     ypos = ypos - yvel;
     
     if(xpos <= 0){
-      xpos = 1000;
+      xpos = 1920;
     }
-    else if(xpos >= 1000){
+    else if(xpos >= 1920){
       xpos = 0;
     }
     if(ypos <= 0){
-      ypos = 1000;
+      ypos = 1050;
     }
-    else if(ypos >= 1000){
+    else if(ypos >= 1050){
       ypos = 0;
     }
     
@@ -77,18 +77,20 @@ class Bullet {
 
 void setup(){
   background(0);
-  size(1920,1000);
-  mods = new Bullet[300];
-  for (int i = 0; i<300; i++){
-    mods[i] = new Bullet(500,500);
+  size(1920,1050);
+  mods = new Bullet[1000];
+  for (int i = 0; i<1000; i++){
+    mods[i] = new Bullet(960,500);
   }  
 }
 void draw(){
   background(0);
   for(Bullet mod : mods){
     mod.update();
-  }
+  } 
+  if (INDEX != 1000){
+    mods[INDEX] = new Bullet(960,500);
+    INDEX = INDEX + 1;
 }
-
-
+}
 
