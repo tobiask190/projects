@@ -10,6 +10,7 @@ class Bullet {
   int red = 255;
   int green = 0;
   int blue = 0;
+  int initialize = 0;
   Bullet (float xini, float yini){
     xpos = xini;
     ypos = yini;
@@ -17,60 +18,65 @@ class Bullet {
     yvel = velocity*sin(angle);
   }
   void update(){
-    xpos = xpos - xvel;
-    ypos = ypos - yvel;
-    
-    if(xpos <= 0){
-      xpos = 1920;
-    }
-    else if(xpos >= 1920){
-      xpos = 0;
-    }
-    if(ypos <= 0){
-      ypos = 1050;
-    }
-    else if(ypos >= 1050){
-      ypos = 0;
-    }
-    
-    if (colorr == 0){
-      green++;
-      if (green == 255){
-        colorr = 1;
+    if (initialize == 1){
+      xpos = xpos - xvel;
+      ypos = ypos - yvel;
+      
+      if(xpos <= 0){
+        xpos = 1920;
       }
-    }
-    if (colorr == 1){
-      red--;
-      if (red == 0){
-        colorr = 2;
+      else if(xpos >= 1920){
+        xpos = 0;
       }
-    }
-    if (colorr == 2){
-      blue++;
-      if (blue == 255){
-        colorr = 3;
+      if(ypos <= 0){
+        ypos = 1050;
       }
-    }
-    if (colorr == 3){
-      green--;
-      if (green == 0){
-        colorr = 4;
+      else if(ypos >= 1050){
+        ypos = 0;
       }
-    }
-    if (colorr == 4){
-      red++;
-      if (red == 255){
-        colorr = 5;
+      
+      if (colorr == 0){
+        green++;
+        if (green == 255){
+          colorr = 1;
+        }
       }
-    }
-    if (colorr == 5){
-      blue--;
-      if (blue == 0){
-        colorr = 0;
+      if (colorr == 1){
+        red--;
+        if (red == 0){
+          colorr = 2;
+        }
       }
+      if (colorr == 2){
+        blue++;
+        if (blue == 255){
+          colorr = 3;
+        }
+      }
+      if (colorr == 3){
+        green--;
+        if (green == 0){
+          colorr = 4;
+        }
+      }
+      if (colorr == 4){
+        red++;
+        if (red == 255){
+          colorr = 5;
+        }
+      }
+      if (colorr == 5){
+        blue--;
+        if (blue == 0){
+          colorr = 0;
+        }
+      }
+      fill(red, green, blue);
+      ellipse(xpos, ypos, 5, 5);
     }
-    fill(red, green, blue);
-    ellipse(xpos, ypos, 5, 5);
+  }
+  int initialization(){
+    return initialize = 1;
   }
 }
 
@@ -90,6 +96,7 @@ void draw(){
   } 
   if (INDEX != 1000){
     mods[INDEX] = new Bullet(960,500);
+    mods[INDEX].initialization();
     INDEX = INDEX + 1;
 }
 }
