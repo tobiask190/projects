@@ -1,25 +1,17 @@
 Spaceship rocket_triangle = new Spaceship();
 Bullet[] mods;
-int BOOLEAN = 0;
-int INDEX = 0;
-
-void keyReleased() {
-    keyboard = 0;
-  }
 
 //Setting up the vertices values
 float a, b, c, d, e, f;
 
 //Setting up the float values
-float speed, angle = 0; 
-float accel = 0.5;
+float angle = 0; 
 float xvel = 0;
 float yvel = 0;
-float global_x;
-float global_y;
 float xpos = -500;
 float ypos = -500;
-int keyboard = 0;
+int BOOLEAN = 0;
+int INDEX = 0;
 
 //////////////////////////////////////////////////////////
 
@@ -33,10 +25,24 @@ class Bullet {
     pxvel = velocity*cos(angle);
     pyvel = velocity*sin(angle);
   }
-  void p_update(){
+  void pupdate(){
     if (initialize == 1){
       pxpos = pxpos - pxvel;
       pypos = pypos - pyvel;
+      
+      /*if(pxpos <= 0){
+        pxpos = 500;
+      }
+      else if(pxpos >= 1920){
+        pxpos = 0;
+      }
+      if(pypos <= 0){
+        pypos = -500;
+      }
+      else if(pypos >= 1050){
+        pypos = 0;
+      }
+      */
       ellipse(pxpos, pypos, 5, 5);
     }
   }
@@ -68,21 +74,21 @@ float cosMath(float input, float axis){
   return output;
 }
 
+//Helps wit
+
+
 //////////////////////////////////////////////////////////
 
 void setup(){
-size(1000,1000);
-background (0);
-stroke(0);
-fill(255);
-frameRate(30);
-mods = new Bullet[10];
-  for (int i = 0; i<10; i++){
+size(1920,1050);
+background(0);
+fill(255);;
+
+mods = new Bullet[1000];
+  for (int i = 0; i<1000; i++){
     mods[i] = new Bullet(0,0);
   }  
 }
-
-/////////////////////////////////////////////////////////
 
 void draw() {
   //Resetting the screen before the update
@@ -100,29 +106,23 @@ void draw() {
   
   //Setting the speed of the object
     if(keyPressed && keyCode == UP){
-        xvel = xvel + accel*cos(angle);
-        yvel = yvel + accel*sin(angle);
+        xvel = xvel + 0.3*cos(angle);
+        yvel = yvel + 0.3*sin(angle);
     }
     
     xpos = xpos - xvel;
     ypos = ypos - yvel;
-
-  if (keyboard == 0 && keyPressed && keyCode == ENTER){
-    mods[INDEX] = new Bullet(xpos,ypos);
-    mods[INDEX].initialization();
-    INDEX = INDEX + 1;
-    if (INDEX == 10){
-      INDEX = 0;
-    }
-    keyboard = 1;
-  }
-
+  
   //Updating the position of the triangle
   rocket_triangle.update();
   
-  for(Bullet mod : mods){
-    mod.p_update();
-  } 
   //Updating the position of all pellets
-  
+  for(Bullet mod : mods){
+    mod.pupdate();
+  } 
+  if (keyPressed && keyCode == ALT){
+    mods[INDEX] = new Bullet(xpos,ypos);
+    mods[INDEX].initialization();
+    INDEX = INDEX + 1;
+  }
 }
