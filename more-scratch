@@ -1,15 +1,13 @@
 Bullet[] mods;
 int BOOLEAN = 0;
 int INDEX = 0;
+float angle = 0;
+int gxpos = 960;
+int gypos = 500;
 
 class Bullet {
-  float velocity = random(1,1.5);
-  float angle = random(2*3.142);
+  float velocity = 1;
   float xpos, ypos, yvel, xvel;
-  int colorr = 0;
-  int red = 255;
-  int green = 0;
-  int blue = 0;
   int initialize = 0;
   Bullet (float xini, float yini){
     xpos = xini;
@@ -34,44 +32,6 @@ class Bullet {
       else if(ypos >= 1050){
         ypos = 0;
       }
-      
-      if (colorr == 0){
-        green++;
-        if (green == 255){
-          colorr = 1;
-        }
-      }
-      if (colorr == 1){
-        red--;
-        if (red == 0){
-          colorr = 2;
-        }
-      }
-      if (colorr == 2){
-        blue++;
-        if (blue == 255){
-          colorr = 3;
-        }
-      }
-      if (colorr == 3){
-        green--;
-        if (green == 0){
-          colorr = 4;
-        }
-      }
-      if (colorr == 4){
-        red++;
-        if (red == 255){
-          colorr = 5;
-        }
-      }
-      if (colorr == 5){
-        blue--;
-        if (blue == 0){
-          colorr = 0;
-        }
-      }
-      fill(red, green, blue);
       ellipse(xpos, ypos, 5, 5);
     }
   }
@@ -80,24 +40,43 @@ class Bullet {
   }
 }
 
-
 void setup(){
   background(0);
   size(1920,1050);
-  mods = new Bullet[1000];
-  for (int i = 0; i<1000; i++){
+  mods = new Bullet[10000];
+  for (int i = 0; i<10000; i++){
     mods[i] = new Bullet(960,500);
   }  
 }
 void draw(){
   background(0);
+  
+  angle = angle + 1.61803398875;
+  //if (angle >= 2*3.14159265359){
+    //angle = 0;
+  //}
+  
   for(Bullet mod : mods){
     mod.update();
   } 
+  
+  if (keyCode == RIGHT && keyPressed){
+    gxpos++;
+  }
+  if (keyCode == LEFT && keyPressed){
+    gxpos--;
+  }
+  if (keyCode == UP && keyPressed){
+    gypos--;
+  }
+  if (keyCode == DOWN && keyPressed){
+    gypos++;
+  }
+  
   if (INDEX != 1000){
-    mods[INDEX] = new Bullet(960,500);
+    mods[INDEX] = new Bullet(gxpos,gypos);
     mods[INDEX].initialization();
     INDEX = INDEX + 1;
+  }
+  
 }
-}
-
