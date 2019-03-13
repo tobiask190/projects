@@ -8,15 +8,15 @@ float a, b, c, d, e, f;
 float angle = 0; 
 float xvel = 0;
 float yvel = 0;
-float xpos = -500;
-float ypos = -500;
+float xpos = 500;
+float ypos = 500;
 int BOOLEAN = 0;
 int INDEX = 0;
 
 //////////////////////////////////////////////////////////
 
 class Bullet {
-  float velocity = 1;
+  float velocity = 10;
   float pxpos, pypos, pyvel, pxvel;
   int initialize = 0;
   Bullet (float xini, float yini){
@@ -27,8 +27,8 @@ class Bullet {
   }
   void pupdate(){
     if (initialize == 1){
-      pxpos = pxpos - pxvel;
-      pypos = pypos - pyvel;
+      pxpos = pxpos + pxvel;
+      pypos = pypos + pyvel;
       
       /*if(pxpos <= 0){
         pxpos = 500;
@@ -65,12 +65,12 @@ class Spaceship{
 }
 
 float sinMath(float input, float axis){
-  float output = 100*sin(input) - axis;
+  float output = 100*sin(input) + axis;
   return output;
 }
 
 float cosMath(float input, float axis){
-  float output = 100*cos(input) - axis;
+  float output = 100*cos(input) + axis;
   return output;
 }
 
@@ -84,9 +84,9 @@ size(1920,1050);
 background(0);
 fill(255);;
 
-mods = new Bullet[1000];
-  for (int i = 0; i<1000; i++){
-    mods[i] = new Bullet(0,0);
+mods = new Bullet[10];
+  for (int i = 0; i<10; i++){
+    mods[i] = new Bullet(xpos,ypos);
   }  
 }
 
@@ -110,8 +110,8 @@ void draw() {
         yvel = yvel + 0.3*sin(angle);
     }
     
-    xpos = xpos - xvel;
-    ypos = ypos - yvel;
+    xpos = xpos + xvel;
+    ypos = ypos + yvel;
   
   //Updating the position of the triangle
   rocket_triangle.update();
@@ -120,9 +120,14 @@ void draw() {
   for(Bullet mod : mods){
     mod.pupdate();
   } 
-  if (keyPressed && keyCode == ALT){
+}
+void keyPressed(){
+  if (keyCode == ENTER){
     mods[INDEX] = new Bullet(xpos,ypos);
     mods[INDEX].initialization();
     INDEX = INDEX + 1;
+    if (INDEX == 10){
+      INDEX = 0;
+    }
   }
 }
