@@ -1,25 +1,23 @@
 Spaceship rocket_triangle = new Spaceship();
 Bullet[] mods;
 
-//Setting up the vertices values
-float a, b, c, d, e, f;
-
 //Setting up the float values
 float angle = 0; 
 float xvel = 0;
 float yvel = 0;
 float xpos = 500;
 float ypos = 500;
-int BOOLEAN = 0;
+//Setting up the index number for calling pellet objects within the array
 int INDEX = 0;
 
 //////////////////////////////////////////////////////////
 
 class Bullet {
-  float velocity = 10;
+  float velocity = 40;
   float pxpos, pypos, pyvel, pxvel;
   int initialize = 0;
   Bullet (float xini, float yini){
+    //xini and yini set to the current value of the triangle
     pxpos = xini;
     pypos = yini;
     pxvel = velocity*cos(angle);
@@ -29,53 +27,40 @@ class Bullet {
     if (initialize == 1){
       pxpos = pxpos + pxvel;
       pypos = pypos + pyvel;
-      
-      /*if(pxpos <= 0){
-        pxpos = 500;
-      }
-      else if(pxpos >= 1920){
-        pxpos = 0;
-      }
-      if(pypos <= 0){
-        pypos = -500;
-      }
-      else if(pypos >= 1050){
-        pypos = 0;
-      }
-      */
-      ellipse(pxpos, pypos, 5, 5);
+      ellipse(pxpos, pypos, 10, 10);
     }
   }
   int initialization(){
     return initialize = 1;
   }
 }
-
 class Spaceship{
+  //Setting up the vertices values
+  float xv1, yv1, xv2, yv2, xv3, yv3;
   void update(){
     //complicated trig to calculate the location of all the vertices
-    a = cosMath(angle, xpos);
-    b = sinMath(angle, ypos);
-    c = cosMath(angle+2.0944, xpos);
-    d = sinMath(angle+2.0944, ypos);
-    e = cosMath(angle+4.18879, xpos);
-    f = sinMath(angle+4.18879, ypos);
-    triangle (a,b,c,d,e,f);
+    xv1 = cosMath(angle, xpos);
+    yv1 = sinMath(angle, ypos);
+    xv2 = cosMath(angle+2.0944, xpos);
+    yv2 = sinMath(angle+2.0944, ypos);
+    xv3 = cosMath(angle+4.18879, xpos);
+    yv3 = sinMath(angle+4.18879, ypos);
+    ellipse (xv1, yv1, 5, 5);
+    triangle (xv1,yv1,xv2,yv2,xv3,yv3);
   }
 }
 
+//////////////////////////////////////////////////////////
+
+//Functions so that I don't have to write the stupid equation six times
 float sinMath(float input, float axis){
   float output = 100*sin(input) + axis;
   return output;
 }
-
 float cosMath(float input, float axis){
   float output = 100*cos(input) + axis;
   return output;
 }
-
-//Helps wit
-
 
 //////////////////////////////////////////////////////////
 
@@ -83,7 +68,6 @@ void setup(){
 size(1920,1050);
 background(0);
 fill(255);;
-
 mods = new Bullet[10];
   for (int i = 0; i<10; i++){
     mods[i] = new Bullet(xpos,ypos);
@@ -93,7 +77,6 @@ mods = new Bullet[10];
 void draw() {
   //Resetting the screen before the update
   background(0);
-  
   //rotating the object
   if(mousePressed) {
     if(mouseButton == LEFT){
@@ -103,30 +86,29 @@ void draw() {
       angle=angle+0.05;
     }
   }
-  
   //Setting the speed of the object
-    if(keyPressed && keyCode == UP){
-        xvel = xvel + 0.3*cos(angle);
-        yvel = yvel + 0.3*sin(angle);
-    }
-    
-    xpos = xpos + xvel;
-    ypos = ypos + yvel;
-  
-  //Updating the position of the triangle
+  if(keyPressed && keyCode == UP){
+      xvel = xvel + 0.1*cos(angle);
+      yvel = yvel + 0.1*sin(angle);
+  }
+  //setting the new position of the triangle
+  xpos = xpos + xvel;
+  ypos = ypos + yvel;
+  //Redrawing the triangle
   rocket_triangle.update();
-  
   //Updating the position of all pellets
   for(Bullet mod : mods){
     mod.pupdate();
   } 
 }
+
 void keyPressed(){
   if (keyCode == ENTER){
-    mods[INDEX] = new Bullet(xpos,ypos);
+    mods[INDEX] = new Bullet(cosMath(angle, xpos),sinMath(angle, ypos));
     mods[INDEX].initialization();
     INDEX = INDEX + 1;
     if (INDEX == 10){
+      //make sure that the INDEX doesn't call beyond the allocated space
       INDEX = 0;
     }
   }
