@@ -1,5 +1,5 @@
 Spaceship rocket_triangle = new Spaceship();
-Bullet[] mods;
+Bullet[] inds;
 
 //Setting up the float values
 float angle = 0; 
@@ -68,9 +68,9 @@ void setup(){
 size(1920,1050);
 background(0);
 fill(255);;
-mods = new Bullet[10];
+inds = new Bullet[10];
   for (int i = 0; i<10; i++){
-    mods[i] = new Bullet(xpos,ypos);
+    inds[i] = new Bullet(xpos,ypos);
   }  
 }
 
@@ -97,15 +97,15 @@ void draw() {
   //Redrawing the triangle
   rocket_triangle.update();
   //Updating the position of all pellets
-  for(Bullet mod : mods){
-    mod.pupdate();
+  for(Bullet ind : inds){
+    ind.pupdate();
   } 
 }
 
 void keyPressed(){
   if (keyCode == ENTER){
-    mods[INDEX] = new Bullet(cosMath(angle, xpos),sinMath(angle, ypos));
-    mods[INDEX].initialization();
+    inds[INDEX] = new Bullet(cosMath(angle, xpos),sinMath(angle, ypos));
+    inds[INDEX].initialization();
     INDEX = INDEX + 1;
     if (INDEX == 10){
       //make sure that the INDEX doesn't call beyond the allocated space
